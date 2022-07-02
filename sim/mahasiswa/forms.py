@@ -83,7 +83,7 @@ class editartikel_F(FlaskForm):
 
 class surat_F(FlaskForm):
     subjek = StringField('Pengirim : ',validators=[DataRequired()])
-    kategori= SelectField(u'Kategori Surat : ', choices=[('HMJ','Hmj'),('Pemerintah','Pemerintah'), ('Kampus','Kamppus')], validators=[DataRequired()])
+    kategori= SelectField(u'Kategori Surat : ', choices=[('Dinas Parawisata','DINAS PARAWISATA'),('Dinas Perhubungan','DINAS PERHUBUNGAN'), ('Dinas Kehutanan','DINAS KEHUTANAN')], validators=[DataRequired()])
     detail_surat= TextAreaField('Isi Surat : ')
     submit = SubmitField('Kirim')
 
