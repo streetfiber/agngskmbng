@@ -1,0 +1,102 @@
+{% extends "base.html" %} 
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="jumbotron">
+    <h4>Artikel</h4>
+    <!--Data Pengaduan-->
+    <form method="POST">
+      {{ form.hidden_tag()}}
+      <div class="form-group">
+          {{form.judul.label(class="form-control-label")}}
+          {% if form.judul.errors %}
+              {{form.judul(class="form-control is-invalid")}}
+          
+              <div class="invalid-feedback">
+                  {% for error in form.judul.errors %}
+                 <span>{{error}}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{form.judul(class="form-control")}}
+  
+          {% endif %}
+      </div>
+
+      <div class="form-group">
+        {{form.kategori.label(class="form-control-label")}}
+        {% if form.kategori.errors %}
+            {{form.kategori(class="form-control is-invalid")}}
+        
+            <div class="invalid-feedback">
+                {% for error in form.kategori.errors %}
+               <span>{{error}}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{form.kategori(class="form-control")}}
+
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        {{form.detail_artikel.label(class="form-control-label")}}
+        {% if form.detail_artikel.errors %}
+            {{form.detail_artikel(class="form-control is-invalid")}}
+        
+            <div class="invalid-feedback">
+                {% for error in form.detail_artikel.errors %}
+               <span>{{error}}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{form.detail_artikel(class="form-control")}}
+
+        {% endif %}
+      </div>
+      
+      <br>
+      <div class="form-group">
+        {{form.submit(class="btn btn-primary")}}     
+      </div>
+    </form>
+    
+      <hr class="my-4">
+      <h4>Data Artikel</h4>
+      <div class="table-responsive">
+  
+          <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Judul</th>
+                  <th scope="col">Kategori</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Hapus</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for data in dt_artikel %}
+                <tr>
+                  <th scope="row">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left-square-fill" viewBox="0 0 16 16">
+                        <path d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2zm8.096-10.803L6 9.293V6.525a.5.5 0 0 0-1 0V10.5a.5.5 0 0 0 .5.5h3.975a.5.5 0 0 0 0-1H6.707l4.096-4.096a.5.5 0 1 0-.707-.707z"/>
+                      </svg>
+                  </th>
+                  <td>{{data.tgl_post}}</td>
+                  <td>{{data.judul}}</td>
+                  <td>{{data.kategori}}</td>
+                  <td><a class="btn btn-outline-light" href="#">Edit</a></td>
+                  <td><a class="btn btn-outline-light" href="#">Hapus</a></td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+            
+        </div>
+</div>
+
+{% endblock content %}

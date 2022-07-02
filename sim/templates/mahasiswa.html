@@ -1,0 +1,46 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<h1>Selamat datang</h1>
+
+<form>
+    <div class="form-group">
+      {{form.npm.label(class="form-control-label")}}
+      {{form.npm(class="form-control")}}
+    </div>
+    <div class="form-group">
+      {{form.nama.label(class="form-control-label")}}
+      {{form.nama(class="form-control")}}
+    </div>
+    <div class="form-group">
+      {{form.email.label(class="form-control-label")}}
+      {{form.email(class="form-control")}}
+    </div>
+    <div class="form-group">
+      {{form.kelas.label(class="form-control-label")}}
+      {{form.kelas(class="form-control")}}
+    </div>
+    <div class="form-group">
+      {{form.alamat.label(class="form-control-label")}}
+      {{form.alamat(class="form-control")}}
+    </div>
+    <br>
+    <div class="form-group">
+      {{form.submit(class="btn btn-primary")}}     
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+<br>
+<h1> data</h1>
+{% for data in data_mahasiswa %}
+<ul>
+    <li>{{data.nama}}</li>
+    <li>{{data.kelas}}</li>
+    <li>{{data.alamat}}</li>
+</ul>
+
+{%endfor%}
+{% endblock content %}
+
+

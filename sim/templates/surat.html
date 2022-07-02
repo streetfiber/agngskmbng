@@ -1,0 +1,132 @@
+{% extends "base.html" %} 
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="jumbotron">
+    <h4>Surat</h4>
+    <!--Data Pengaduan-->
+    <form method="POST">
+      {{ form.hidden_tag()}}
+      <div class="form-group">
+          {{form.subjek.label(class="form-control-label")}}
+          {% if form.subjek.errors %}
+              {{form.subjek(class="form-control is-invalid")}}
+          
+              <div class="invalid-feedback">
+                  {% for error in form.subjek.errors %}
+                 <span>{{error}}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{form.subjek(class="form-control")}}
+  
+          {% endif %}
+      </div>
+
+      <div class="form-group">
+        {{form.kategori.label(class="form-control-label")}}
+        {% if form.kategori.errors %}
+            {{form.kategori(class="form-control is-invalid")}}
+        
+            <div class="invalid-feedback">
+                {% for error in form.kategori.errors %}
+               <span>{{error}}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{form.kategori(class="form-control")}}
+
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        {{form.detail_surat.label(class="form-control-label")}}
+        {% if form.detail_surat.errors %}
+            {{form.detail_surat(class="form-control is-invalid")}}
+        
+            <div class="invalid-feedback">
+                {% for error in form.detail_surat.errors %}
+               <span>{{error}}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{form.detail_surat(class="form-control")}}
+
+        {% endif %}
+      </div>
+      
+      <br>
+      <div class="form-group">
+        {{form.submit(class="btn btn-primary")}}     
+      </div>
+    </form>
+    
+    <script>
+        function hapus_data(value){
+          let valid_link = document.getElementById('delet-hapus')
+          valid_link.href="/delet/ " + value
+        }
+      </script>
+  
+    <hr class="my-4">
+    <h4>Data Surat</h4>
+    <div class="table-responsive">
+  
+          <table class="table table-hover table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Subjek</th>
+                  <th scope="col">Kategori</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Hapus</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for data in dt_surat %}
+                <tr>
+                <th scope="row">
+                  <a href=" {{url_for('rmahasiswa.detail_surat', ed_id=data.id)}} ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left-square-fill" viewBox="0 0 16 16">
+                      <path d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2zm8.096-10.803L6 9.293V6.525a.5.5 0 0 0-1 0V10.5a.5.5 0 0 0 .5.5h3.975a.5.5 0 0 0 0-1H6.707l4.096-4.096a.5.5 0 1 0-.707-.707z"/>
+                    </svg>
+                  </a>
+                </th>
+                  <td>{{data.tgl_post}}</td>
+                  <td>{{data.subjek}}</td>
+                  <td>{{data.kategori}}</td>
+                  <td><a class="btn btn-outline-light" href="{{url_for('rmahasiswa.update_surat', ed_id=data.id)}}">Edit</td>
+                  <td><a class="btn btn-outline-danger" data-toggle="modal" data-target="#modals-hapus" onclick="hapus_data({{data.id}})" >Hapus</a></td>
+                </tr>
+                {%endfor%}
+                <!-- modals Delete-->         
+              <div class="modal" tabindex="-1" role="dialog" id="modals-hapus">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <form action="">
+                        <a class="btn btn-danger" id="delet-hapus"> Hapus</a>
+                      </form>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% endblock content %}
